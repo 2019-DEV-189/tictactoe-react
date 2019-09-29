@@ -1,3 +1,24 @@
-.Board {
-    text-align: center;
+.board {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	color: white;
+	width: 300px;
+	height: 300px;
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%);
+}
+
+.gameStatusMessage {
+	color: black;
+	font-weight: 1.4em;
+	text-align:center;
+	display:inline-block;
+	position:relative;
+	width:100%;
+	margin-bottom: 20px;
 }

@@ -1,3 +1,32 @@
-.Square {
-    text-align: center;
-}
+.square{
+    box-sizing: border-box;
+    font-family: sans-serif;
+    font-size: 6em;
+    display: flex;
+    flex: 0 32%;
+    width: 100px;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .colWall {
+    border-right: 10px solid black;
+  }
+  
+  .rowWall {
+    border-bottom: 10px solid black;
+  }
+  
+  .newRow {
+    flex-wrap:wrap;
+    align-items:flex-start;
+  }
+  
+  .xColor {
+    color: blue;
+  }
+  
+  .oColor {
+    color: red;
+  }
