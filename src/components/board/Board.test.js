@@ -152,3 +152,39 @@ describe('Players alternate placing X’s and O’s on the board until a game is
       expect(boardInstance.state.isGameOver).toBeFalsy();
    });
 });
+
+describe('If a player is able to draw three X’s or three O’s in a row, that player wins.', function(){
+
+   it('should be a win if Player `X` draws three in a row', function() {
+      squareIndex = 5;
+      boardInstance.state.currentPlayer = squareEnum.xPlayer;
+ 
+      boardInstance.state.board =  [
+          squareEnum.xPlayer, squareEnum.EMPTY, squareEnum.xPlayer,
+          squareEnum.oPlayer, squareEnum.oPlayer, squareEnum.EMPTY,
+          squareEnum.xPlayer, squareEnum.oPlayer, squareEnum.xPlayer
+      ];
+ 
+      boardInstance.updateBoard(squareIndex);
+      expect(boardInstance.isWon()).toBeTruthy();
+      expect(boardInstance.state.isGameOver).toBeTruthy();
+      expect(boardInstance.state.gameStatusMessage).toBe('Player X Wins!');
+   });
+
+   it('should be a win if Player `O` draws three in a row', function() {
+      squareIndex = 1;
+      boardInstance.state.currentPlayer = squareEnum.oPlayer;
+      boardInstance.state.isGameOver = false;
+ 
+      boardInstance.state.board =  [
+          squareEnum.xPlayer, squareEnum.EMPTY, squareEnum.xPlayer,
+          squareEnum.oPlayer, squareEnum.oPlayer, squareEnum.EMPTY,
+          squareEnum.xPlayer, squareEnum.oPlayer, squareEnum.xPlayer
+      ];
+      
+      boardInstance.updateBoard(squareIndex);
+      expect(boardInstance.isWon()).toBeTruthy();
+      expect(boardInstance.state.isGameOver).toBeTruthy();
+      expect(boardInstance.state.gameStatusMessage).toBe('Player O Wins!');
+   });
+ });

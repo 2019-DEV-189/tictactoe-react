@@ -6,10 +6,13 @@ class Board extends Component {
 
   XPLAYER_TURN = 'Player X\'s Turn!';
   OPLAYER_TURN = 'Player O\'s Turn!';
+  XPLAYER_WINS = 'Player X Wins!';
+  OPLAYER_WINS = 'Player O Wins!';
 
   statusMessages = {
-                  "turn": { "X": this.XPLAYER_TURN, "O": this.OPLAYER_TURN}
-                  }
+    "turn": { "X": this.XPLAYER_TURN, "O": this.OPLAYER_TURN},
+    "won":  { "X": this.XPLAYER_WINS, "O": this.OPLAYER_WINS},
+  }
 
   constructor () {
     super()
@@ -48,8 +51,8 @@ class Board extends Component {
   }
 
   checkGameStatus() {
-    if (this.isTriplet()) {
-      this.setState({ isGameOver : true})
+    if (this.isWon()) {
+      this.setGameStatus(true, this.getStatusMessage('won', this.state.currentPlayer));
     }
     else if (this.isBoardFull()) {
       this.setState({ isGameOver : true})
@@ -59,9 +62,8 @@ class Board extends Component {
     }
   }
 
-  isTriplet() {
-    let tempBoard = this.tempBoard(this.state.board);
-    return (this.isHorizontalTriplet(tempBoard) || this.isVerticalTriplet(tempBoard) || this.isDiagonalTriplet(tempBoard));
+  isWon() {
+    return this.isTriplet();
   }
 
   isBoardFull() {
@@ -75,6 +77,11 @@ class Board extends Component {
 
   nextMove() {
     this.togglePlayer();
+  }
+
+  isTriplet() {
+    let tempBoard = this.tempBoard(this.state.board);
+    return (this.isHorizontalTriplet(tempBoard) || this.isVerticalTriplet(tempBoard) || this.isDiagonalTriplet(tempBoard));
   }
 
   isHorizontalTriplet(tempBoard) {
@@ -132,10 +139,12 @@ class Board extends Component {
   }
 
   getStatusMessage(status, player) {
-    const {turn} = this.statusMessages;
+    const {turn, won} = this.statusMessages;
     switch(player.concat(status)) {
       case 'Xturn': return turn.X;
       case 'Oturn': return turn.O;
+      case 'Xwon': return won.X;
+      case 'Owon': return won.O;
       default: return this.state.gameStatusMessage;
     }
   }
