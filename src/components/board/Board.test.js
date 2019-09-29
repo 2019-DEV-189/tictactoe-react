@@ -35,3 +35,17 @@ describe('X always goes first', function() {
       expect(board[squareIndex]).not.toEqual(squareEnum.oPlayer);
     });
 });
+
+describe('Players cannot play on a played position', function() {
+   squareIndex = 0;
+   board =  [
+      squareEnum.xPlayer, squareEnum.EMPTY, squareEnum.EMPTY,
+      squareEnum.EMPTY, squareEnum.EMPTY, squareEnum.EMPTY,
+      squareEnum.EMPTY, squareEnum.EMPTY, squareEnum.EMPTY
+   ];
+   boardInstance.updateBoard(squareIndex);
+
+   it('should not let player to update the board on a played position', function() {
+     expect(boardInstance.isMoveAllowed()).toBeFalsy();
+   });
+});

@@ -21,7 +21,17 @@ class Board extends Component {
   }
  
   updateBoard(squareIndex) {
-    this.setSquareItem(squareIndex);
+    if (this.isMoveAllowed(squareIndex)) {
+      this.setSquareItem(squareIndex);
+    }
+  }
+
+  isMoveAllowed(squareIndex) {
+    return (!this.state.isGameOver && this.isEmptyPosition(squareIndex));
+  }
+
+  isEmptyPosition (squareIndex) {
+    return (this.state.board[squareIndex] === this.state.squareEnum.EMPTY);
   }
 
   setSquareItem(squareIndex) {
