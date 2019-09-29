@@ -22,17 +22,17 @@ describe('X always goes first', function() {
    squareIndex = 0;
 
    it('should have X player as a current player when a new game begins', () => {
-      expect(currentPlayer).toEqual(squareEnum.xPlayer);
-      expect(gameStatusMessage).toEqual(boardInstance.XPLAYER_TURN);
+      expect(currentPlayer).toEqual('X');
+      expect(gameStatusMessage).toEqual('Player X\'s Turn!');
 
-      expect(currentPlayer).not.toEqual(squareEnum.oPlayer);
-      expect(gameStatusMessage).not.toEqual(boardInstance.OPLAYER_TURN);
+      expect(currentPlayer).not.toEqual('O');
+      expect(gameStatusMessage).not.toEqual('Player O\'s Turn!');
    });
 
    it('should be X that updates the board first', function() {
       boardInstance.updateBoard(0);
-      expect(board[squareIndex]).toEqual(squareEnum.xPlayer);
-      expect(board[squareIndex]).not.toEqual(squareEnum.oPlayer);
+      expect(board[squareIndex]).toEqual('X');
+      expect(board[squareIndex]).not.toEqual('O');
     });
 });
 
@@ -71,9 +71,9 @@ describe('Players alternate placing X’s and O’s on the board until a game is
 
       boardInstance.updateBoard(squareIndex);
       expect(togglePlayerSpy).toHaveBeenCalled();
-      expect(boardInstance.state.currentPlayer).toBe(squareEnum.xPlayer);
+      expect(boardInstance.state.currentPlayer).toBe('X');
       expect(boardInstance.state.isGameOver).toBeFalsy();
-      expect(boardInstance.state.gameStatusMessage).toBe(boardInstance.getStatusMessage('turn', squareEnum.xPlayer));
+      expect(boardInstance.state.gameStatusMessage).toBe('Player X\'s Turn!');
       });
 
    it('should allow Player `O` to play next if Player `X` played last', function() {
@@ -88,9 +88,9 @@ describe('Players alternate placing X’s and O’s on the board until a game is
  
       boardInstance.updateBoard(squareIndex);
       expect(togglePlayerSpy).toHaveBeenCalled();
-      expect(boardInstance.state.currentPlayer).toBe(squareEnum.oPlayer);
+      expect(boardInstance.state.currentPlayer).toBe('O');
       expect(boardInstance.state.isGameOver).toBeFalsy();
-      expect(boardInstance.state.gameStatusMessage).toBe(boardInstance.getStatusMessage('turn', squareEnum.oPlayer));
+      expect(boardInstance.state.gameStatusMessage).toBe('Player O\'s Turn!');
     });
 
    it('should continue game if no player has three in a row horizontally', function() {
