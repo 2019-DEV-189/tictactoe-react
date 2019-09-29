@@ -187,41 +187,4 @@ describe('If a player is able to draw three X’s or three O’s in a row, that 
       expect(boardInstance.state.isGameOver).toBeTruthy();
       expect(boardInstance.state.gameStatusMessage).toBe('Player O Wins!');
    });
-});
-
-describe('If all nine squares are filled and neither player has three in a row, the game is a draw.', function(){
-
-   it('should be a draw if Player `X` doesn`t have three in a row and board is full', function() {
-      squareIndex = 2;
-      boardInstance.state.currentPlayer = squareEnum.xPlayer;
-      boardInstance.state.isGameOver = false;
- 
-      boardInstance.state.board =  [
-          squareEnum.oPlayer, squareEnum.oPlayer, squareEnum.EMPTY,
-          squareEnum.xPlayer, squareEnum.xPlayer, squareEnum.oPlayer,
-          squareEnum.oPlayer, squareEnum.xPlayer, squareEnum.xPlayer
-      ];
- 
-      boardInstance.updateBoard(squareIndex);
-      expect(boardInstance.isDraw()).toBeTruthy();
-      expect(boardInstance.state.isGameOver).toBeTruthy();
-      expect(boardInstance.state.gameStatusMessage).toBe('It\'s a Draw!');
-   });
-
-   it('should be a draw if Player `O` doesn`t have three in a row and board is full', function() {
-      squareIndex = 5;
-      boardInstance.state.currentPlayer = squareEnum.oPlayer;
-      boardInstance.state.isGameOver = false;
- 
-      boardInstance.state.board =  [
-          squareEnum.oPlayer, squareEnum.oPlayer, squareEnum.xPlayer,
-          squareEnum.xPlayer, squareEnum.xPlayer, squareEnum.EMPTY,
-          squareEnum.oPlayer, squareEnum.xPlayer, squareEnum.xPlayer
-      ];
- 
-      boardInstance.updateBoard(squareIndex);
-      expect(boardInstance.isDraw()).toBeTruthy();
-      expect(boardInstance.state.isGameOver).toBeTruthy();
-      expect(boardInstance.state.gameStatusMessage).toBe('It\'s a Draw!');
-   });
-});
+ });
