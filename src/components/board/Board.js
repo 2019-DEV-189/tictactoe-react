@@ -8,6 +8,7 @@ class Board extends Component {
   OPLAYER_TURN = 'Player O\'s Turn!';
   XPLAYER_WINS = 'Player X Wins!';
   OPLAYER_WINS = 'Player O Wins!';
+  DRAW = 'It\'s a Draw!';
 
   statusMessages = {
     "turn": { "X": this.XPLAYER_TURN, "O": this.OPLAYER_TURN},
@@ -54,8 +55,8 @@ class Board extends Component {
     if (this.isWon()) {
       this.setGameStatus(true, this.getStatusMessage('won', this.state.currentPlayer));
     }
-    else if (this.isBoardFull()) {
-      this.setState({ isGameOver : true})
+    else if (this.isDraw()) {
+      this.setGameStatus(true, this.DRAW);
     }
     else {
       this.nextMove();
@@ -66,13 +67,8 @@ class Board extends Component {
     return this.isTriplet();
   }
 
-  isBoardFull() {
-    for (const squareItem of this.state.board){
-      if (squareItem === this.state.squareEnum.EMPTY){
-        return false;
-      }
-    }
-    return true;
+  isDraw() {
+    return (this.isBoardFull() && !this.isTriplet());
   }
 
   nextMove() {
@@ -82,6 +78,15 @@ class Board extends Component {
   isTriplet() {
     let tempBoard = this.tempBoard(this.state.board);
     return (this.isHorizontalTriplet(tempBoard) || this.isVerticalTriplet(tempBoard) || this.isDiagonalTriplet(tempBoard));
+  }
+
+  isBoardFull() {
+    for (const squareItem of this.state.board){
+      if (squareItem === this.state.squareEnum.EMPTY){
+        return false;
+      }
+    }
+    return true;
   }
 
   isHorizontalTriplet(tempBoard) {
